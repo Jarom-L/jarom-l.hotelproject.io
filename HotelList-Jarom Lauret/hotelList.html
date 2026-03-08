@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Guest Manager</title>
+    <script src="guestManager.js" defer></script>
+    <script src="hotelList.js" defer></script>
+    <link rel="stylesheet" href="hotelList.css">
+</head>
+<body>
+    <main class="page-wrapper">
+        <section class="card controls-card">
+            <h1 class="Dirwik">Dirwik Hotel Guest Manager</h1>
+            <p class="subtext">Manage guests, room status, and occupancy in real time.</p>
+
+            <!-- div for the room selection dropdown -->
+            <div class="form-row">
+                <label for="roomSelect">Select Room:</label>
+                <select id="roomSelect">
+                    <option value="Room 1">Room 1</option>
+                    <option value="Room 2">Room 2</option>
+                    <option value="Room 3">Room 3</option>
+                    <option value="Room 4">Room 4</option>
+                    <option value="Room 5">Room 5</option>
+                    <option value="Room 6">Room 6</option>
+                </select>
+            </div>
+
+            <!-- div for the guest name input and buttons -->
+            <div class="form-row">
+                <input type="text" id="guestNameInput" placeholder="Select Add or Remove to continue" disabled>
+            </div>
+
+            <div class="button-row">
+                <button id="addGuestButton">Add Guest</button>
+                <button id="removeGuestButton">Remove Guest</button>
+                <button id="clearGuestsButton">Clear Guests</button>
+                <button id="lockRoomButton">Lock/Unlock Room</button>
+            </div>
+
+            <hr>
+
+            <div id="roomStatus" class="status-pill">Room Status: Unlocked</div>
+            <div id="guestCount" class="status-pill">Total Guests: 0</div>
+
+            <!-- div for the room occupancy and guest list for the selected room -->
+            <div id="roomOccupancy"></div>
+            <div id="guestList" class="list-box"></div>
+
+            <button class="secondary-action" onclick="window.location.href='Hotel-Listing-History.html'">Show Action History</button>
+            <button class="secondary-action" onclick="window.location.href='DirwikRadio.html'">Dirwik Radio</button>
+        </section>
+    </main>
+
+    <div id="customAlert" class="custom-alert hidden info" role="alertdialog" aria-hidden="true" aria-live="assertive">
+        <div class="custom-alert-content">
+            <p id="customAlertMessage">Notification message</p>
+            <button id="closeCustomAlert" type="button" class="secondary-action">OK</button>
+        </div>
+    </div>
+</body>
+</html>

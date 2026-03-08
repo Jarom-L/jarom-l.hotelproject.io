@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Hotel History Page">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Guest History</title>
+    <script src="guestManager.js" defer></script>
+    <link rel="stylesheet" href="hotelList.css">
+</head>
+<body>
+    <main class="page-wrapper history-page">
+        <section class="card history-card">
+            <h1>Hotel Guest History</h1>
+            <p class="subtext">Review room occupancy snapshots and action logs.</p>
+
+            <div id="historyContainer" class="list-box">
+                <h1>Guest History</h1>
+            </div>
+            <div id="logContainer" class="list-box">
+                <h2>Guest Action Log</h2>
+            </div>
+
+            <div class="button-row">
+                <button onclick="clearActionHistory()">Clear All Action History</button>
+                <button onclick="clearLocalStorage()">Clear Local Storage</button>
+                <button class="secondary-action" onclick="window.location.href='DirwikRadio.html'">Dirwik Radio</button>
+                <button class="secondary-action" onclick="window.location.href='hotelList.html'">Back to Rooms Page</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

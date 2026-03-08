@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dirwik Radio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: #f8fafc;
+            padding: 16px;
+        }
+
+        .radio-card {
+            width: min(560px, 100%);
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid #475569;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            color: #60a5fa;
+            text-align: center;
+        }
+
+        p {
+            margin: 0 0 16px;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        select,
+        .back-button {
+            width: 100%;
+            font: inherit;
+        }
+
+        select {
+            margin-bottom: 20px;
+            border: 1px solid #475569;
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #1e293b;
+            color: #f8fafc;
+        }
+
+        /* Hide default audio controls */
+        audio {
+            display: none;
+        }
+
+        /* Vinyl Disk Player */
+        .disk-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .vinyl-disk {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, #1e293b 0%, #1e293b 25%, #0f172a 25%, #0f172a 30%, #1e293b 30%, #1e293b 35%, #0f172a 35%, #0f172a 100%);
+            position: relative;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .vinyl-disk:hover {
+            transform: scale(1.02);
+        }
+
+        .vinyl-disk.spinning {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .disk-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .disk-hole {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #0f172a;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .player-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-btn {
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #ffffff;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .control-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .back-button {
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #475569, #64748b);
+            color: #ffffff;
+            padding: 10px 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <main class="radio-card">
+        <h1>Dirwik Radio</h1>
+        <p>Pick a track and press play.</p>
+
+        <label for="trackSelect">Now Playing</label>
+        <select id="trackSelect" aria-label="Select radio track">
+            <option value="Cinematicism.mp3">Cinematicism</option>
+            <option value="Entity Cleanup Alt.mp3">Entity Cleanup Alt</option>
+            <option value="Mandela.mp3">Mandela</option>
+            <option value="Never Seen Again.mp3">Never Seen Again</option>
+        </select>
+
+        <!-- Hidden audio element -->
+        <audio id="radioPlayer" loop>
+            <source src="Cinematicism.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- Vinyl Disk Player -->
+        <div class="disk-container">
+            <div class="vinyl-disk" id="vinylDisk">
+                <div class="disk-center">
+                    DIRWIK
+                    <div class="disk-hole"></div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <button class="control-btn" id="playBtn" title="Play" aria-label="Play">▶</button>
+                <button class="control-btn" id="pauseBtn" title="Pause" aria-label="Pause">⏸</button>
+            </div>
+        </div>
+
+        <button class="back-button" type="button" onclick="window.location.href='hotelList.html'">Back to Hotel List</button>
+    </main>
+
+    <script>
+        // ============================================
+        // DIRWIK RADIO - MUSIC PLAYER CONTROLLER
+        // ============================================
+        // This script controls the vinyl disk radio player and audio playback
+        
+        // ============================================
+        // DOM ELEMENT REFERENCES
+        // ============================================
+        // Get references to all interactive elements
+        const trackSelect = document.getElementById('trackSelect');  // Dropdown menu for selecting songs
+        const radioPlayer = document.getElementById('radioPlayer');  // Hidden <audio> element that plays the MP3 files
+        const vinylDisk = document.getElementById('vinylDisk');      // The visual vinyl disk element
+        const playBtn = document.getElementById('playBtn');          // Play button (▶)
+        const pauseBtn = document.getElementById('pauseBtn');        // Pause button (⏸)
+
+        // ============================================
+        // EVENT LISTENER: Track Selection
+        // ============================================
+        // Purpose: When user selects a different song from the dropdown, switch the audio source
+        // Behavior: If music was already playing, automatically start the new track
+        trackSelect.addEventListener('change', () => {
+            // Check if music was playing before we change tracks
+            const wasPlaying = !radioPlayer.paused;
+            
+            // Change the audio source to the newly selected MP3 file
+            // trackSelect.value contains the filename (e.g., "Cinematicism.mp3")
+            radioPlayer.src = trackSelect.value;
+            
+            // If music was playing before, automatically play the new track
+            // This creates a seamless transition between songs
+            if (wasPlaying) {
+                radioPlayer.play();
+            }
+        });
+
+        // ============================================
+        // EVENT LISTENER: Play Button
+        // ============================================
+        // Purpose: Start playing the audio when user clicks the play button (▶)
+        // Actions: Starts audio playback AND spins the vinyl disk
+        playBtn.addEventListener('click', () => {
+            // Start playing the audio file
+            // radioPlayer.play() is a built-in browser method for <audio> elements
+            radioPlayer.play();
+            
+            // Add 'spinning' CSS class to start the vinyl disk rotation animation
+            vinylDisk.classList.add('spinning');
+        });
+
+        // ============================================
+        // EVENT LISTENER: Pause Button
+        // ============================================
+        // Purpose: Stop the audio when user clicks the pause button (⏸)
+        // Actions: Pauses audio playback AND stops the vinyl disk spinning
+        pauseBtn.addEventListener('click', () => {
+            // Pause the audio file
+            // radioPlayer.pause() is a built-in browser method for <audio> elements
+            radioPlayer.pause();
+            
+            // Remove 'spinning' CSS class to stop the vinyl disk rotation animation
+            vinylDisk.classList.remove('spinning');
+        });
+
+        // ============================================
+        // EVENT LISTENER: Audio Play State Change
+        // ============================================
+        // Purpose: Automatically sync the vinyl disk animation with the audio playback state
+        // Why needed: The audio can start/stop from other sources (keyboard shortcuts, 
+        //             browser controls, etc.), so we need to keep the visual in sync
+        
+        // When audio starts playing (from any source), spin the disk
+        radioPlayer.addEventListener('play', () => {
+            vinylDisk.classList.add('spinning');
+        });
+
+        // When audio pauses (from any source), stop spinning the disk
+        radioPlayer.addEventListener('pause', () => {
+            vinylDisk.classList.remove('spinning');
+        });
+        
+        // ============================================
+        // HOW THE MUSIC SYSTEM WORKS:
+        // ============================================
+        // 1. HTML <audio> element (hidden) handles actual MP3 playback
+        // 2. The 'loop' attribute makes songs repeat automatically
+        // 3. CSS animation rotates the vinyl disk when 'spinning' class is added
+        // 4. JavaScript keeps the visual (disk) synced with audio state
+        // 5. User clicks play → audio.play() → disk spins
+        // 6. User clicks pause → audio.pause() → disk stops
+        // 7. User changes track → changes audio.src → plays if was playing
+    </script>
+</body>
+</html>
